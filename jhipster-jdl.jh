@@ -1,0 +1,60 @@
+MIN_LENGTH_STR_LONG = 0
+MAX_LENGTH_STR_LONG = 200
+MIN_LENGTH_STR_SHORT = 0
+MAX_LENGTH_STR_SHORT = 20
+
+// ENTITIES
+entity Topic {
+	name String required maxlength(MAX_LENGTH_STR_SHORT)
+    imageURL String 
+    description String
+    levelCount Integer 
+}
+entity Level {
+	name String required
+	level Integer required
+	tokenValue Integer
+}
+entity Question {
+	question String required
+}
+entity Answer {
+	answer String required
+    correct Boolean required
+}
+entity EduContent {
+	name String
+	pageCount Integer required
+}
+entity EduContentPage {
+	content String
+    imageURL String
+}
+entity Progress {
+	lastLevelUnlocked Integer
+    percentPassed Float
+}
+entity Profile {
+	tokens Integer
+    
+}
+
+// RELATIONSHIPS
+relationship OneToMany {
+  	Topic to Level{topic},
+  	Level to Question{level},
+    Question to Answer{question},
+    EduContent to EduContentPage{eduContent},
+    Topic to Progress{topic}
+}
+relationship OneToOne {
+	Level to EduContent{level}
+}
+
+// OPTIONS
+dto all with mapstruct
+service all with serviceImpl
+
+
+
+
